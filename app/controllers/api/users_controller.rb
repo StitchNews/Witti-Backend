@@ -1,5 +1,5 @@
 class Api::UsersController < Api::ApiController
-  skip_before_filter :authenticate_user_from_token!, :only => [:create, :sign_in]  #skip checking token when creating user
+  skip_before_filter :authenticate_user_from_token!, :only => :create #skip checking token when creating user
 
   def index 
     render json: User.all
@@ -25,10 +25,6 @@ class Api::UsersController < Api::ApiController
     end
   end
 
-  def sign_in 
-    @current_user = User.find()
-  end 
-
   #get user by id
   def show 
     user = User.find_by(id: params[:id])
@@ -46,7 +42,23 @@ class Api::UsersController < Api::ApiController
         errors: "Can't Find User"
       }.to_json
     end 
+  end 
 
+  def get_user_highlights
+    user = User.find_by(id: params[:id])
+    if user 
+      highlights = user.highlights
+      render status: 200, json: {
+        message:"Retrieved Highlights",
+        response: highlights,
+      }.to_json
+    else 
+      render status: 500 , json: {
+        message:"Article Doesn't Exist",
+        response: []
+      }.to_json
+
+    end 
   end 
 
 

@@ -2,7 +2,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :articles, only: [:index, :new, :create, :update]
+      get "/articles/:id/highlights" => "articles#show_article_highlights"
     resources :users , only: [:index,:new,:create,:update,:show]
+      get "/users/:id/highlights" => "users#get_user_highlights"
+    resources :sessions, only: [:create, :destroy]
     resources :highlights
   end 
 
