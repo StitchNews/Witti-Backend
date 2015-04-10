@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get "/users/:id/highlights" => "users#get_user_highlights"
     resources :sessions, only: [:create, :destroy]
     resources :highlights
+    resources :categories, only: [:create, :destroy, :update, :show]
   end 
 
   # The priority is based upon order of creation: first created -> highest priority.
