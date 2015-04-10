@@ -5,9 +5,11 @@ Rails.application.routes.draw do
       get "/articles/:id/highlights" => "articles#show_article_highlights"
     resources :users , only: [:index,:new,:create,:update,:show]
       get "/users/:id/highlights" => "users#get_user_highlights"
+      get "/users/:id/collections" => "users#get_user_collections"
     resources :sessions, only: [:create, :destroy]
     resources :highlights
-    resources :categories, only: [:create, :destroy, :update, :show]
+    resources :collections, only: [:create, :destroy, :update, :show]
+      get "/collections/:id/highlights" => "collections#get_collection_highlights"
   end 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -4,8 +4,8 @@ class Api::SessionsController < Api::ApiController
 	def create
     	inputted_password = params[:session][:password]
     	user_email = params[:session][:email]
-    	user = user_email.present? && User.find_by(email: user_email)
-	    if user.salt && BCrypt::Engine.hash_secret(inputted_password, user.salt) == user.encrypted_password
+    	user = User.find_by(email: user_email)
+	    if user && BCrypt::Engine.hash_secret(inputted_password, user.salt) == user.encrypted_password
 	    	render status: 200, json: {
 		        message:"Successfully Logged In",
 		        response: {

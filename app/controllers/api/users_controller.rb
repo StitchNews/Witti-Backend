@@ -54,10 +54,25 @@ class Api::UsersController < Api::ApiController
       }.to_json
     else 
       render status: 500 , json: {
-        message:"Article Doesn't Exist",
+        message:"User Doesn't Exist",
         response: []
       }.to_json
+    end 
+  end 
 
+  def get_user_collections
+    user = User.find_by(id: params[:id])
+    if user 
+      collections = user.collections
+      render status: 200, json: {
+        message:"Retrieved Highlights",
+        response: collections,
+      }.to_json
+    else 
+      render status: 500 , json: {
+        message:"User Doesn't Exist",
+        response: []
+      }.to_json
     end 
   end 
 

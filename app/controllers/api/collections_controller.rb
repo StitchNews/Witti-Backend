@@ -1,0 +1,43 @@
+class Api::CollectionsController < ApplicationController
+	def create
+		collection = Collection.new(collection_params)
+		if collection.save
+			render status: 200, json: {
+		        message:"New Collection Created",
+		        response: {
+		          name: collection.name,
+		          id: collection.id
+		        }
+		        
+		    }.to_json
+		else 
+			render status: 500, json: {
+        		errors: collection.errors
+      		}.to_json
+		end 
+	end 
+
+	def get_collection_highlights 
+		collection = Collection.find_by_id(params[:id])
+		if collection
+			render status: 200, json: {
+		        message:"Found Collection",
+		        response: collection.highlights
+		    }.to_json
+		else
+			render status: 500 , json: {
+		        message:"Collection Doesn't Exist",
+		        response: []
+		      }.to_json
+
+		end 
+	end 
+
+
+	private
+
+		def collection_params
+			params.require("collection").permit(:name,:user_id)
+		end 
+
+end

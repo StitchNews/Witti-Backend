@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	has_many :articles
 	has_many :highlights
+	has_many :collections
 
 	EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 	validates :email, :presence => true, uniqueness: true, :format => EMAIL_REGEX
