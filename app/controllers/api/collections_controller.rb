@@ -16,6 +16,44 @@ class Api::CollectionsController < ApplicationController
       		}.to_json
 		end 
 	end 
+	#update name
+	def update
+		collection = Collection.find_by_id(params[:id])
+		if collection 
+			if collection.update_attributes(collection_params)
+				render status: 200, json: {
+			        message:"Collection Updated",
+			        response: {
+			          name: collection.name,
+			          id: collection.id
+			        }
+			        
+			    }.to_json
+			else 
+				render status: 500, json: {
+	        		errors: collection.errors
+	      		}.to_json
+			end 
+		else 
+			render status: 500, json: {
+		        message:"Collection Not Found",
+		    }.to_json
+		end 
+	end 
+
+	def destroy
+		collection = Collection.find_by_id(params[:id])
+		if collection.destroy
+			render status: 200, json: {
+		        message:"Collection Destroyed",
+		    }.to_json
+		else 
+			render status: 500, json: {
+		        message:"Collection Not Found",
+		    }.to_json
+		end 
+
+	end 
 
 	def get_collection_highlights 
 		collection = Collection.find_by_id(params[:id])

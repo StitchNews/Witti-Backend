@@ -65,7 +65,7 @@ class Api::UsersController < Api::ApiController
     if user 
       collections = user.collections
       render status: 200, json: {
-        message:"Retrieved Highlights",
+        message:"Retrieved Collections",
         response: collections,
       }.to_json
     else 
