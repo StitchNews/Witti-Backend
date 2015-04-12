@@ -23,7 +23,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'responders', '~> 2.0' 
-gem 'bcrypt-ruby', :require => 'bcrypt' 
+gem 'bcrypt' 
 gem 'devise', '~> 3.4.1'
 gem 'rename'
 group :production do
