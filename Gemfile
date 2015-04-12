@@ -28,6 +28,7 @@ gem 'devise', '~> 3.4.1'
 gem 'rename'
 group :production do
   gem 'pg'
+  gem 'thin'
 
 end
 
