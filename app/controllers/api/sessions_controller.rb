@@ -1,6 +1,7 @@
 class Api::SessionsController < Api::ApiController
 	skip_before_filter :authenticate_user_from_token!, :only => :create #skip checking token when creating signing in
 
+	#login
 	def create
     	inputted_password = params[:session][:password]
     	user_email = params[:session][:email]
