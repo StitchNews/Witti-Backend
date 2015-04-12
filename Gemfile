@@ -28,7 +28,7 @@ gem 'devise', '~> 3.4.1'
 gem 'rename'
 group :production do
   gem 'pg'
-  gem 'sqlite3'
+
 end
 
 gem 'rails_12factor', group: :production
@@ -53,6 +53,6 @@ group :development, :test do
   gem 'spring'
 
   # Use sqlite3 as the database for Active Record
-
+   gem 'sqlite3'
 end
 
