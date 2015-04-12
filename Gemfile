@@ -29,6 +29,7 @@ gem 'rename'
 group :production do
   gem 'pg'
   gem 'thin'
+  gem 'puma'
 
 end
 
