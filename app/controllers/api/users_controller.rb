@@ -19,7 +19,7 @@ class Api::UsersController < Api::ApiController
         
       }.to_json
     else
-      render status: 200, json: {
+      render status: 404, json: {
         errors: new_user.errors
       }.to_json
     end
