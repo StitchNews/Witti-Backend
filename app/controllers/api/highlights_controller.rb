@@ -7,7 +7,7 @@ class Api::HighlightsController < ApplicationController
 				response: new_highlight,
 			}.to_json
 		else 
-			render status: 500, json: {
+			render status: 200, json: {
 				errors: new_highlight.errors
 			}.to_json
 		end
