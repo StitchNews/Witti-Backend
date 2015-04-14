@@ -19,7 +19,7 @@ class Api::UsersController < Api::ApiController
         
       }.to_json
     else
-      render status: 500, json: {
+      render status: 200, json: {
         errors: new_user.errors
       }.to_json
     end
@@ -38,7 +38,7 @@ class Api::UsersController < Api::ApiController
         }
       }.to_json
     else 
-      render status: 500, json: {
+      render status: 404, json: {
         errors: "Can't Find User"
       }.to_json
     end 
