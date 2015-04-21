@@ -5,15 +5,45 @@ class Api::ArticlesController < Api::ApiController
 
 	def create 
 		new_article = Article.new(article_params)
+		tags = params["article"]["tags"]
+		images = params["article"]["images"]
 		if new_article.save 
+			
+			tags.each do |tag_name|
+				tag = Tag.new
+				tag.name = tag_name
+				tag.article_id = new_article.id
+				tag.save
+			end 
+			images.each do |image|
+				new_image = Image.new
+				new_image.url = image["url"]
+				new_image.title = image["title"]
+				new_image.article_id = new_article.id
+				new_image.save
+			end 
+
 			render status: 200, json: {
 				message:"Success",
 				response: new_article,
+				tags: new_article.tags.as_json(:only => [:name]),
+				images: new_article.images.as_json(:only => [:title,:url])
 			}.to_json
 		else 
-			render status: 500, json: {
-				errors: new_article.errors
-			}.to_json
+			old_article = Article.where(url:params["article"]["url"]).first
+			if old_article 
+				render status: 200, json: {
+					message:"Found Old Article",
+					response: old_article,
+					tags: old_article.tags.as_json(:only => [:name]),
+					images: old_article.images.as_json(:only => [:title,:url])
+				}.to_json
+
+			else 
+				render status: 500, json: {
+					errors: old_article.errors
+				}.to_json
+			end 
 		end
 	end 
 
@@ -38,7 +68,7 @@ class Api::ArticlesController < Api::ApiController
 	private
 
 		def article_params 
-			params.require("article").permit(:title,:url)
+			params.require("article").permit(:title,:url,:author, :date_published,  :text, :html)
 		end 
 		
 end
