@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420173829) do
+ActiveRecord::Schema.define(version: 20150426060307) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20150420173829) do
     t.datetime "updated_at",     null: false
     t.text     "html"
     t.datetime "date_published"
+  end
+
+  create_table "collection_highlights", force: :cascade do |t|
+    t.integer  "collection_id"
+    t.integer  "highlight_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "collections", force: :cascade do |t|
@@ -41,6 +48,7 @@ ActiveRecord::Schema.define(version: 20150420173829) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "collection_id"
+    t.string   "author"
   end
 
   create_table "images", force: :cascade do |t|
