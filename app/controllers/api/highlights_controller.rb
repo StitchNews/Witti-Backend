@@ -6,6 +6,8 @@ class Api::HighlightsController < ApplicationController
 		new_highlight.text = dict[:text]
 		new_highlight.article_id = dict[:article_id]
 		new_highlight.article_url = dict[:article_url]
+		new_highlight.article_title = dict[:article_title]
+		new_highlight.author = dict[:author]
 		new_highlight.user_id = dict[:user_id]
 		if new_highlight.save
 			collections = dict[:collection_ids]
