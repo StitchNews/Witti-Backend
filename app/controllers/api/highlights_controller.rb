@@ -9,12 +9,14 @@ class Api::HighlightsController < ApplicationController
 		new_highlight.user_id = dict[:user_id]
 		if new_highlight.save
 			collections = dict[:collection_ids]
-			collections.each do |collection_id|
-				relationship = CollectionHighlight.new
-				relationship.collection_id = collection_id
-				relationship.highlight_id = new_highlight.id
-				relationship.save
-			end
+			if !(collections.nil?)
+				collections.each do |collection_id|
+					relationship = CollectionHighlight.new
+					relationship.collection_id = collection_id
+					relationship.highlight_id = new_highlight.id
+					relationship.save
+				end
+			end 
 			render status: 200, json: {
 				status: 200,
 				message:"Successfully Added Highlight to Collections",
