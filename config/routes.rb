@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :sessions, only: [:create, :destroy]
     resources :highlights
     resources :collections, only: [:create, :destroy, :update, :show]
-      get "/collections/:id/highlights" => "collections#get_collection_highlights"
+    get "/collections/:id/highlights" => "collections#get_collection_highlights"
   end 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -32,10 +32,6 @@ class Api::HighlightsController < ApplicationController
 			return 
 				
 		end 
-			
-			return
-
-
 	end 
 
 

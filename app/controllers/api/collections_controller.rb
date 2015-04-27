@@ -55,6 +55,23 @@ class Api::CollectionsController < ApplicationController
 
 	end 
 
+	def show
+		collection = Collection.find_by_id(params[:id])
+		if collection
+			render status: 200, json: {
+				status: 200,
+		        message:"Found Collection",
+		        response: collection
+		    }.to_json(:include => :highlights)
+		else
+			render status: 500 , json: {
+		        message:"Collection Doesn't Exist",
+		        response: []
+		      }.to_json
+
+		end 
+	end 
+
 	def get_collection_highlights 
 		collection = Collection.find_by_id(params[:id])
 		if collection
