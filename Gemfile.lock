@@ -60,6 +60,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    engtagger (0.2.0)
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.5.2)
@@ -177,6 +178,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   devise (~> 3.4.1)
+  engtagger
   jbuilder (~> 2.0)
   jquery-rails
   pg

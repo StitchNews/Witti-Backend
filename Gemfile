@@ -26,6 +26,7 @@ gem 'responders', '~> 2.0'
 gem 'bcrypt' 
 gem 'devise', '~> 3.4.1'
 gem 'rename'
+gem 'engtagger'
 group :production do
   gem 'pg'
   gem 'thin'

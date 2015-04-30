@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     resources :highlights
     resources :collections, only: [:create, :destroy, :update, :show]
     get "/collections/:id/highlights" => "collections#get_collection_highlights"
+
+    post "/topics" => "topics#create_topics"
+
   end 
 
   # The priority is based upon order of creation: first created -> highest priority.

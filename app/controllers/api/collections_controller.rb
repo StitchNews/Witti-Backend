@@ -1,6 +1,8 @@
-class Api::CollectionsController < ApplicationController
+class Api::CollectionsController < Api::ApiController
 	def create
-		collection = Collection.new(collection_params)
+		collection = Collection.new
+		collection.name = params[:collection][:name]
+		collection.user_id = @current_user.id
 		if collection.save
 			render status: 200, json: {
 		        message:"New Collection Created",
@@ -92,7 +94,7 @@ class Api::CollectionsController < ApplicationController
 	private
 
 		def collection_params
-			params.require("collection").permit(:name,:user_id)
+			params.require("collection").permit(:name)
 		end 
 
 end
