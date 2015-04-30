@@ -5,8 +5,8 @@ class Highlight < ActiveRecord::Base
 	has_many :collection_highlights, :class_name => 'CollectionHighlight'
 	has_many :collections, :through => :collection_highlights
 
-	has_many :topic_highlights, :class_name => 'TopicHighlight'
-	has_many :topics, :through => :topic_highlights
+	has_many :topic_relationships, :class_name => 'TopicRelationship'
+	has_many :topics, :through => :topic_relationships
 
 	validates :article_url, :presence => true
 	validates :text, :presence => true

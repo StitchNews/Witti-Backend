@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TopicUserTest < ActiveSupport::TestCase
+class TopicRelationshipTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

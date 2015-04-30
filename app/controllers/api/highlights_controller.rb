@@ -53,20 +53,12 @@ class Api::HighlightsController < Api::ApiController
 				topic_id = old_topic.id
 			end 
 			
-			user_topic = TopicUser.new
-			user_topic.user_id = @current_user.id
-			user_topic.topic_id = topic_id
-			user_topic.save
-
-			topic_highlight = TopicHighlight.new
-			topic_highlight.highlight_id = highlight.id
-			topic_highlight.topic_id = topic_id
-			topic_highlight.save
-
-			topic_article = TopicArticle.new
-			topic_article.article_id = highlight.article_id
-			topic_article.topic_id = topic_id
-			topic_article.save
+			relationship = TopicRelationship.new
+			relationship.topic_id = topic_id
+			relationship.user_id = @current_user.id
+			relationship.article_id = highlight.article_id
+			relationship.highlight_id = highlight.id
+			relationship.save
 
 		end 
 	end 
