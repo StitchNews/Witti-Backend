@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
 	has_many :highlights
 	has_many :collections
 
-	has_many :topic_relationships, :class_name => 'TopicRelationship'
-	has_many :topics, :through => :topic_relationships
+	has_many :topic_users, :class_name => 'TopicUser'
+	has_many :topics, :through => :topic_users
 
 	EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 	validates :email, :presence => true, uniqueness: true, :format => EMAIL_REGEX

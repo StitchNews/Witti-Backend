@@ -55,10 +55,21 @@ class Api::HighlightsController < Api::ApiController
 			
 			relationship = TopicRelationship.new
 			relationship.topic_id = topic_id
-			relationship.user_id = @current_user.id
 			relationship.article_id = highlight.article_id
 			relationship.highlight_id = highlight.id
 			relationship.save
+
+			topic_user = TopicUser.new
+			topic_user.user_id = @current_user.id
+			topic_user.topic_id = topic_id
+			topic_user.score = 1
+			if ! topic_user.save
+				old_topic_user = TopicUser.where("user_id = ? AND topic_id = ?",@current_user.id , topic_id).first
+				new_score = old_topic_user.score
+				new_score += 1
+				old_topic_user.update_attribute(:score, new_score)
+				old_topic_user.save
+			end 
 
 		end 
 	end 
