@@ -64,11 +64,37 @@ class Api::ArticlesController < Api::ApiController
 		end 
 	end 
 
+	def get_article_topics 
+		article = Article.find_by_id(params[:id])
+		if article
+	      topics = article.topics
+	      result = render_topics_json(topics)
+	      render status: 200, json: {
+	        message:"Retrieved Collections",
+	        response: result,
+	      }.to_json
+	    else 
+	      render status: 500 , json: {
+	        message:"Article Doesn't Exist",
+	        response: []
+	      }.to_json
+	    end 
+	end 
+
 
 	private
 
 		def article_params 
 			params.require("article").permit(:title,:url,:author, :date_published,  :text, :html)
 		end 
+
+		def render_topics_json(topics)
+	      result = Array.new
+	      topics.each do |topic|
+	        dict = {name:topic.name,id:topic.id, created_at:topic.created_at}
+	        result.push dict
+	      end 
+	      return result
+	    end 
 		
 end

@@ -76,11 +76,38 @@ class Api::UsersController < Api::ApiController
     end 
   end 
 
+  def get_user_topics
+    user = User.find_by(id:params[:id])
+    if user 
+      topics = user.topics
+      result = render_topics_json(topics)
+      render status: 200, json: {
+        message:"Retrieved Collections",
+        response: result,
+      }.to_json
+    else 
+      render status: 500 , json: {
+        message:"User Doesn't Exist",
+        response: []
+      }.to_json
+    end 
+
+  end 
+
 
   private
 
     def user_params 
       params.require("user").permit(:name,:password,:email)
+    end 
+
+    def render_topics_json(topics)
+      result = Array.new
+      topics.each do |topic|
+        dict = {name:topic.name,id:topic.id, score: topic.topic_users.first.score, created_at:topic.created_at}
+        result.push dict
+      end 
+      return result
     end 
 
 

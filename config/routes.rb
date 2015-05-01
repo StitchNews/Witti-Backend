@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   namespace :api do
     resources :articles, only: [:index, :new, :create, :update]
       get "/articles/:id/highlights" => "articles#show_article_highlights"
+      get "articles/:id/topics" => "articles#get_article_topics"
     resources :users , only: [:index,:new,:create,:update,:show]
       get "/users/:id/highlights" => "users#get_user_highlights"
       get "/users/:id/collections" => "users#get_user_collections"
+      get "users/:id/topics" => "users#get_user_topics"
     resources :sessions, only: [:create, :destroy]
     resources :highlights
     resources :collections, only: [:create, :destroy, :update, :show]
