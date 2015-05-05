@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     get "/collections/:id/highlights" => "collections#get_collection_highlights"
 
     post "/topics" => "topics#create_topics"
+    get "topics/:id/users" => "topics#get_users"
+    get "topics" => "topics#search"
 
   end 
 

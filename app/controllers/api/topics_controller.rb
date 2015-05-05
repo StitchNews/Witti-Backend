@@ -18,8 +18,30 @@ class Api::TopicsController < Api::ApiController
 	        topics: keywords
       	}.to_json
 
-
 	end 
+
+	def get_users
+		topic = Topic.find_by(id:params[:id])
+		users = topic.users
+		render status: 200, json: {
+	        message:"Found Users",
+	        status: 200,
+	        response: topic
+	        
+	      }.to_json(:include => { :topic_users => { :only => [:user_id,:score, :user_name] }})
+	end
+
+	def search
+		search_string = "%" + params[:search] + "%"
+	    topics = Topic.all
+	    result = topics.where('name LIKE ?',search_string)
+	    render status: 200, json: {
+	          message:"Successfully Found Topics",
+	          status: 200,
+	          response: result
+	     }.to_json(:include => { :topic_users => { :only => [:user_id,:score, :user_name] }})
+	end 
+
 
 	def parse_string(text)
 

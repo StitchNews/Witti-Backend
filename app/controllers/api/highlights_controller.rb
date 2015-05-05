@@ -61,6 +61,7 @@ class Api::HighlightsController < Api::ApiController
 
 			topic_user = TopicUser.new
 			topic_user.user_id = @current_user.id
+			topic_user.user_name = @current_user.name
 			topic_user.topic_id = topic_id
 			topic_user.score = 1
 			if ! topic_user.save
@@ -68,7 +69,7 @@ class Api::HighlightsController < Api::ApiController
 				new_score = old_topic_user.score
 				new_score += 1
 				old_topic_user.update_attribute(:score, new_score)
-				old_topic_user.save
+				#old_topic_user.save
 			end 
 
 		end 
