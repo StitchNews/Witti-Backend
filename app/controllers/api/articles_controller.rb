@@ -11,6 +11,9 @@ class Api::ArticlesController < Api::ApiController
 			if !tags
 				tags = []
 			end 
+			if !images
+				images = []
+			end 
 			tags.each do |tag_name|
 				tag = Tag.new
 				tag.name = tag_name
@@ -49,6 +52,22 @@ class Api::ArticlesController < Api::ApiController
 		end
 	end 
 
+	def show
+		article = Article.find_by_id(params[:id])
+		if article 
+			render status: 200, json: {
+				message:"Retrieved Article",
+				response: article,
+			}.to_json( :include => {:highlights => { :only => [:id, :text,:user_name, :user_id] }})
+		else 
+			render status: 500 , json: {
+				message:"Article Doesn't Exist",
+				response: []
+			}.to_json
+
+		end 
+	end 
+
 	def show_article_highlights
 		article = Article.find_by_id(params[:id])
 		if article 
@@ -59,7 +78,7 @@ class Api::ArticlesController < Api::ApiController
 			}.to_json
 		else 
 			render status: 500 , json: {
-				message:"User Doesn't Exist",
+				message:"Article Doesn't Exist",
 				response: []
 			}.to_json
 

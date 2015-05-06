@@ -22,16 +22,13 @@ class Api::TopicsController < Api::ApiController
 
 	def show
 		topic = Topic.find_by(id:params[:id])
+		result = render_topic_json(topic)
 		render status: 200, json: {
 	        message:"Found Topic",
 	        status: 200,
-	        topic: topic,
-	        highlights: topic.highlights.most_recent.select([:id, :text]) ,
-	        users: topic.topic_users.most_recent.select([:id,:user_name, :score]),
-	        articles: topic.articles.most_recent.select([:id,:author,:title,:url])
+	        topic: result
 	        
 	      }.to_json
-
 	end 
 
 	def get_users
@@ -96,6 +93,17 @@ class Api::TopicsController < Api::ApiController
         
         return names
     end 
+
+    private 
+    	def render_topic_json(topic)
+    		hash = topic.attributes
+    		hash["highlights"] = topic.highlights.condensed
+    		hash["articles"] = topic.articles.condensed
+    		hash["users"] = topic.topic_users.condensed
+
+    		return hash
+
+    	end 
 
 
 end

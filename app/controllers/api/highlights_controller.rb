@@ -9,6 +9,7 @@ class Api::HighlightsController < Api::ApiController
 		new_highlight.article_title = dict[:article_title]
 		new_highlight.author = dict[:author]
 		new_highlight.user_id = @current_user.id
+		new_highlight.user_name = @current_user.name
 		if new_highlight.save
 			collections = dict[:collection_ids]
 			if !(collections.nil?)

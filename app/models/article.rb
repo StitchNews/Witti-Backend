@@ -9,4 +9,6 @@ class Article < ActiveRecord::Base
 	validates :title, :presence => true
 
 	scope :most_recent, -> { order(created_at: :desc).limit(10) }
+	scope :condensed, -> { order(created_at: :desc).select([:id,:author,:title,:url]).limit(10) }
+	
 end
