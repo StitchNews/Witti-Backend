@@ -8,7 +8,9 @@ class Api::ArticlesController < Api::ApiController
 		tags = params["article"]["tags"]
 		images = params["article"]["images"]
 		if new_article.save 
-			
+			if !tags
+				tags = []
+			end 
 			tags.each do |tag_name|
 				tag = Tag.new
 				tag.name = tag_name
@@ -70,7 +72,7 @@ class Api::ArticlesController < Api::ApiController
 	      topics = article.topics
 	      result = render_topics_json(topics)
 	      render status: 200, json: {
-	        message:"Retrieved Collections",
+	        message:"Retrieved Topics",
 	        response: result,
 	      }.to_json
 	    else 

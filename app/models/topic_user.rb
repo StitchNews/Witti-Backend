@@ -3,7 +3,7 @@ class TopicUser < ActiveRecord::Base
 	belongs_to :user
 	validates :topic_id, :uniqueness => {:scope => [:user_id]}
 
-#	after_validation :update_score, :unless => lambda { errors.empty? }	#update score if relationship already exists
+	scope :most_recent, -> { order(created_at: :desc).limit(10) }
 
 
 end

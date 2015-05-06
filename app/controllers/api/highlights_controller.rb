@@ -35,6 +35,15 @@ class Api::HighlightsController < Api::ApiController
 		end 
 	end 
 
+	def show
+		highlight = Highlight.find_by(params[:id])
+		render status: 200, json: {
+				status: 200,
+				message:"Successfully Found Highlight",
+				response:highlight
+			}.to_json
+	end 
+
 	def create_topics(highlight)
 		keywords = parse_string(highlight.text)
 		keywords.each do |word|
@@ -53,11 +62,15 @@ class Api::HighlightsController < Api::ApiController
 				topic_id = old_topic.id
 			end 
 			
-			relationship = TopicRelationship.new
-			relationship.topic_id = topic_id
-			relationship.article_id = highlight.article_id
-			relationship.highlight_id = highlight.id
-			relationship.save
+			topic_highlight = TopicHighlight.new
+			topic_highlight.topic_id = topic_id
+			topic_highlight.highlight_id = highlight.id
+			topic_highlight.save
+
+			topic_article = TopicArticle.new
+			topic_article.topic_id = topic_id
+			topic_article.article_id = highlight.article_id
+			topic_article.save
 
 			topic_user = TopicUser.new
 			topic_user.user_id = @current_user.id
@@ -66,13 +79,26 @@ class Api::HighlightsController < Api::ApiController
 			topic_user.score = 1
 			if ! topic_user.save
 				old_topic_user = TopicUser.where("user_id = ? AND topic_id = ?",@current_user.id , topic_id).first
-				new_score = old_topic_user.score
-				new_score += 1
-				old_topic_user.update_attribute(:score, new_score)
-				#old_topic_user.save
+				old_topic_user.increment!(:score, by = 1)
 			end 
 
 		end 
+	end 
+
+	def get_highlight_topics 
+		highlight = Highlight.find_by_id(params[:id])
+		if highlight
+	      topics = highlight.topics
+	      render status: 200, json: {
+	        message:"Retrieved Topics",
+	        response: topics,
+	      }.to_json
+	    else 
+	      render status: 500 , json: {
+	        message:"Highlight Doesn't Exist",
+	        response: []
+	      }.to_json
+	    end 
 	end 
 
 	def parse_string(text)

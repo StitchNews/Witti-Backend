@@ -10,5 +10,8 @@ class Highlight < ActiveRecord::Base
 
 	validates :article_url, :presence => true
 	validates :text, :presence => true
+
+	scope :most_recent, -> { order(created_at: :desc).limit(10) }
+	
 	#validates :collection_id, :presence => true
 end

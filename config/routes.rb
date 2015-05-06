@@ -9,13 +9,17 @@ Rails.application.routes.draw do
       get "/users/:id/collections" => "users#get_user_collections"
       get "users/:id/topics" => "users#get_user_topics"
     resources :sessions, only: [:create, :destroy]
-    resources :highlights
+    resources :highlights, only: [:create,:show]
+    get "highlights/:id/topics" => "highlights#get_highlight_topics"
+
     resources :collections, only: [:create, :destroy, :update, :show]
     get "/collections/:id/highlights" => "collections#get_collection_highlights"
 
     post "/topics" => "topics#create_topics"
+    get "/topics/:id" => "topics#show"
     get "topics/:id/users" => "topics#get_users"
     get "topics" => "topics#search"
+
 
   end 
 

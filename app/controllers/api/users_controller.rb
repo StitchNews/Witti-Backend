@@ -104,7 +104,8 @@ class Api::UsersController < Api::ApiController
     def render_topics_json(topics)
       result = Array.new
       topics.each do |topic|
-        dict = {name:topic.name,id:topic.id, score: topic.topic_users.first.score, created_at:topic.created_at}
+        dict = {name:topic.name,id:topic.id, score: topic.topic_users.first.score, created_at:topic.created_at, updated_at:topic.updated_at}
+        
         result.push dict
       end 
       return result
