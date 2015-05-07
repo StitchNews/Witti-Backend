@@ -82,7 +82,7 @@ class Api::UsersController < Api::ApiController
       topics = user.topics
       result = render_topics_json(topics)
       render status: 200, json: {
-        message:"Retrieved Collections",
+        message:"Retrieved Topics",
         response: result,
       }.to_json
     else 

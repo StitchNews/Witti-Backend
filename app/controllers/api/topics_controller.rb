@@ -26,7 +26,7 @@ class Api::TopicsController < Api::ApiController
 		render status: 200, json: {
 	        message:"Found Topic",
 	        status: 200,
-	        topic: result
+	        response: result
 	        
 	      }.to_json
 	end 
