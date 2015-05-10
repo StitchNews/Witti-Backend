@@ -58,7 +58,12 @@ class Api::ArticlesController < Api::ApiController
 			render status: 200, json: {
 				message:"Retrieved Article",
 				response: article,
-			}.to_json( :include => {:highlights => { :only => [:id, :text,:user_name, :user_id] }})
+			}.to_json( :include => [
+				{:highlights => { :only => [:id, :text,:user_name, :user_id] }},
+				{:topics => { :only => [:id, :name] }},
+				{:tags => { :only => [:name] }},
+				{:images => { :only => [:title, :url] }}
+			])
 		else 
 			render status: 500 , json: {
 				message:"Article Doesn't Exist",
